@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.pc_controller.MainActivity">
+    <group
+        android:id="@+id/menu_group_id"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/connection_configuration_menu_item_id"
+            android:orderInCategory="1"
+            android:title="@string/connection_configuration_str"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/basic_screen_menu_item_id"
+            android:orderInCategory="2"
+            android:title="@string/basic_control_str"
+            app:showAsAction="never" />
+    </group>
+</menu>
