@@ -4,7 +4,10 @@
     <string name="basic_control_str">Basic Controls</string>
     <string name="connection_configuration_str">Connection Configuration</string>
     <string name="instruction_str">Enter the IP address of your PC and a port number to establish a connection</string>
-    <string name="ip_adress_field_label_str">IP Adress</string>
+    <string name="ip_adress_field_label_str">IP Address</string>
     <string name="port_number_field_label_str">Port Number</string>
     <string name="connect_button_label_str">Connect</string>
+    <string name="connecting_label_str">Connecting...</string>
+    <string name="connected_label_str">Connected!</string>
+    <string name="failed_connection_label_str">Connection Failed.</string>
 </resources>
