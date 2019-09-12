@@ -1,10 +1,12 @@
 package com.example.pc_controller;
 
+import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import java.net.*;
+import java.io.*;
 
 
 
@@ -22,7 +26,8 @@ public class MainActivity extends AppCompatActivity
     private static final int NUMOFOPTIONS = 2;
     private connection_configuration_frag_class connection_configuration_frag;
     private basic_controls_frag_class basic_controls_frag;
-    private boolean is_connected = false;
+    private Menu main_menu;
+    boolean is_connected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -47,6 +52,8 @@ public class MainActivity extends AppCompatActivity
 
         MenuItem initiation = menu.findItem(R.id.connection_configuration_menu_item_id);
         onOptionsItemSelected(initiation);
+
+        main_menu = menu;
         return true;
     }
 
@@ -74,10 +81,19 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private boolean establish_connection()
+    private void establish_connection(LinearLayout connection_progress_label_frame_in,
+             LinearLayout connection_progress_image_frame_in,
+             TextView connection_progress_label_in,
+             Button connect_button_in)
     {
+        connection_establishment_class connection = new connection_establishment_class(connection_progress_label_frame_in,
+        connection_progress_image_frame_in,
+        connection_progress_label_in,
+        main_menu,
+        connect_button_in,
+        this);
 
-        return false;
+        connection.execute("");
     }
 
     public void connection_button_pressed(View view)
@@ -98,25 +114,10 @@ public class MainActivity extends AppCompatActivity
         ProgressBar connection_progress_bar = new ProgressBar( this);
         connection_progress_image_frame.addView(connection_progress_bar);
 
-        boolean is_connected = establish_connection();
-        if(is_connected)
-        {
+        establish_connection(connection_progress_label_frame,
+                connection_progress_image_frame,
+                connection_progress_label,
+                connect_button);
 
-        }
-        else
-        {
-            connection_progress_label.setText(R.string.failed_connection_label_str);
-            connection_progress_image_frame.removeAllViews();
-
-            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams)connection_progress_image_frame.getLayoutParams();
-            params.setMargins(0, 100, 0, 0);
-
-            ImageView error_image_view = new ImageView(this);
-            error_image_view.setImageResource(R.drawable.error_image);
-            connection_progress_image_frame.addView(error_image_view, 75, 75);
-            connection_progress_image_frame.setLayoutParams(params);
-        }
-
-        connect_button.setEnabled(true);
     }
 }
