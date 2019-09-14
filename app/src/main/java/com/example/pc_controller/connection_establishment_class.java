@@ -2,17 +2,23 @@ package com.example.pc_controller;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.net.Socket;
+
+
 
 public class connection_establishment_class extends AsyncTask<String, Void, String>
 {
@@ -24,13 +30,15 @@ public class connection_establishment_class extends AsyncTask<String, Void, Stri
     private Menu main_menu;
     private Button connect_button;
     private Context main_activity_context;
+    private Handler mainThreadHandler;
 
     public connection_establishment_class(LinearLayout connection_progress_label_frame_in,
-            LinearLayout connection_progress_image_frame_in,
-            TextView connection_progress_label_in,
-            Menu main_menu_in,
-            Button connect_button_in,
-            Context main_activity_context_in)
+                                          LinearLayout connection_progress_image_frame_in,
+                                          TextView connection_progress_label_in,
+                                          Menu main_menu_in,
+                                          Button connect_button_in,
+                                          Context main_activity_context_in,
+                                          Handler mainThreadHandler_in)
     {
         connection_progress_label_frame = connection_progress_label_frame_in;
         connection_progress_image_frame = connection_progress_image_frame_in;
@@ -38,23 +46,28 @@ public class connection_establishment_class extends AsyncTask<String, Void, Stri
         main_menu = main_menu_in;
         connect_button = connect_button_in;
         main_activity_context = main_activity_context_in;
+        mainThreadHandler = mainThreadHandler_in;
     }
 
     @Override
     protected String doInBackground(String... strings)
     {
+        String ip_address = strings[0];
+        int port_number = Integer.parseInt(strings[1]);
         try
         {
-            Log.d("TAG","Connecting to " + "192.168.35.244" + " on port " + Integer.toString(15200));
-            Socket client = new Socket("192.168.35.244", 15200);
-            Log.d("TAG", "Just connected.");
-            Log.d("TAG", "Just connected to " + client.getRemoteSocketAddress());
+            Socket client = new Socket(ip_address, port_number);
+
+            Message message = new Message();
+            message.what = 1;
+            message.arg1 = 1;
+            mainThreadHandler.sendMessage(message);
+
             is_connected = true;
         }
         catch (IOException e)
         {
             e.printStackTrace();
-            Log.d("TAG","Failed to connect.");
             is_connected = false;
         }
         return is_connected ? "Connected" : "Not Connected";

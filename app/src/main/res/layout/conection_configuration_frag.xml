@@ -36,7 +36,7 @@
         app:layout_constraintVertical_bias="0.014" />
 
     <EditText
-        android:id="@+id/ip_address_field"
+        android:id="@+id/ip_address_field_id"
         android:layout_width="260dp"
         android:layout_height="45dp"
         android:layout_marginTop="16dp"
@@ -50,44 +50,43 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/port_number_field_id"
         android:layout_width="260dp"
         android:layout_height="43dp"
         android:ems="10"
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/ip_address_field"
+        app:layout_constraintEnd_toEndOf="@+id/ip_address_field_id"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/ip_address_field"
-        app:layout_constraintTop_toBottomOf="@+id/ip_address_field"
+        app:layout_constraintStart_toStartOf="@+id/ip_address_field_id"
+        app:layout_constraintTop_toBottomOf="@+id/ip_address_field_id"
         app:layout_constraintVertical_bias="0.024" />
 
     <TextView
         android:id="@+id/ip_address_field_label_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:text="@string/ip_adress_field_label_str"
-        app:layout_constraintBottom_toBottomOf="@+id/ip_address_field"
-        app:layout_constraintEnd_toStartOf="@+id/ip_address_field"
-        app:layout_constraintHorizontal_bias="0.525"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ip_address_field_id"
+        app:layout_constraintEnd_toStartOf="@+id/ip_address_field_id"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ip_address_field" />
+        app:layout_constraintTop_toTopOf="@+id/ip_address_field_id" />
 
     <TextView
         android:id="@+id/port_number_field_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:text="@string/port_number_field_label_str"
-        app:layout_constraintBottom_toBottomOf="@+id/editText2"
-        app:layout_constraintEnd_toStartOf="@+id/editText2"
-        app:layout_constraintHorizontal_bias="0.525"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/port_number_field_id"
+        app:layout_constraintEnd_toStartOf="@+id/port_number_field_id"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editText2"
-        app:layout_constraintVertical_bias="0.576" />
+        app:layout_constraintTop_toTopOf="@+id/port_number_field_id" />
 
     <Button
         android:id="@+id/connect_button_id"
@@ -97,10 +96,10 @@
         android:onClick="connection_button_pressed"
         android:text="@string/connect_button_label_str"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/editText2"
+        app:layout_constraintEnd_toEndOf="@+id/port_number_field_id"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/editText2"
-        app:layout_constraintTop_toBottomOf="@+id/editText2"
+        app:layout_constraintStart_toStartOf="@+id/port_number_field_id"
+        app:layout_constraintTop_toBottomOf="@+id/port_number_field_id"
         app:layout_constraintVertical_bias="0.0" />
 
     <LinearLayout
