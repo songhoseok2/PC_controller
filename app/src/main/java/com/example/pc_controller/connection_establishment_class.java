@@ -1,12 +1,14 @@
 package com.example.pc_controller;
 
 import android.content.Context;
+import android.net.InetAddresses;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.Socket;
 
 
@@ -31,6 +34,7 @@ public class connection_establishment_class extends AsyncTask<String, Void, Stri
     private Button connect_button;
     private Context main_activity_context;
     private Handler mainThreadHandler;
+    public Socket client;
 
     public connection_establishment_class(LinearLayout connection_progress_label_frame_in,
                                           LinearLayout connection_progress_image_frame_in,
@@ -56,13 +60,12 @@ public class connection_establishment_class extends AsyncTask<String, Void, Stri
         int port_number = Integer.parseInt(strings[1]);
         try
         {
-            Socket client = new Socket(ip_address, port_number);
+           client = new Socket(ip_address, port_number);
 
             Message message = new Message();
             message.what = 1;
             message.arg1 = 1;
             mainThreadHandler.sendMessage(message);
-
             is_connected = true;
         }
         catch (IOException e)
@@ -106,4 +109,8 @@ public class connection_establishment_class extends AsyncTask<String, Void, Stri
         connect_button.setEnabled(true);
     }
 
+    public Socket get_client_socket()
+    {
+        return client;
+    }
 }
