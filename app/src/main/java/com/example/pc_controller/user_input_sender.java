@@ -29,14 +29,19 @@ public class user_input_sender extends AsyncTask<String, Void, String> {
             //BufferedOutputStream out = new BufferedOutputStream(output);
             DataOutputStream out = new DataOutputStream(new BufferedOutputStream(output));
 
-            if(strings[0].equals("alt_tab"))
+            byte[] msg = "".getBytes();
+            if(strings[1].equals("swipe"))
             {
-                byte[] msg = "alt_tab".getBytes();
-                //out.write(msg);
-                //out.flush();
-                out.write(msg);
+                out.write(strings[1].getBytes());
                 out.flush();
+                msg = strings[0].getBytes();
             }
+            else
+            {
+                msg = (strings[0] + "_" + strings[1]).getBytes();
+            }
+            out.write(msg);
+            out.flush();
 
             Log.d("TAG", "s sent");
             return "success";
