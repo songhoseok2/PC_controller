@@ -10,6 +10,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
+//import java.lang.instrument.Instrumentation;
 
 public class user_input_sender extends AsyncTask<String, Void, String> {
     Socket client;
@@ -25,23 +26,28 @@ public class user_input_sender extends AsyncTask<String, Void, String> {
         try
         {
             OutputStream output = client.getOutputStream();
-            //DataOutputStream out = new DataOutputStream(output);
-            //BufferedOutputStream out = new BufferedOutputStream(output);
             DataOutputStream out = new DataOutputStream(new BufferedOutputStream(output));
 
-            byte[] msg = "".getBytes();
-            if(strings[1].equals("swipe"))
+            byte[] msg;
+            if(strings[0].equals("s"))
             {
-                out.write(strings[1].getBytes());
+                String x_movement = strings[1];
+                String y_movement = strings[2];
+                out.write(("+"+x_movement+"_"+y_movement).getBytes());
                 out.flush();
-                msg = strings[0].getBytes();
+
+
+//                out.write(strings[1].getBytes());
+//                out.flush();
+//                msg = strings[1].getBytes();
             }
             else
             {
                 msg = (strings[0] + "_" + strings[1]).getBytes();
+                out.write(msg);
+                out.flush();
             }
-            out.write(msg);
-            out.flush();
+
 
             Log.d("TAG", "s sent");
             return "success";

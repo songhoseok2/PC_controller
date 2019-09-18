@@ -55,7 +55,7 @@ public class swipe_listener_class implements View.OnTouchListener
                 // When you want to determine the velocity, call
                 // computeCurrentVelocity(). Then call getXVelocity()
                 // and getYVelocity() to retrieve the velocity for each pointer ID.
-                mVelocityTracker.computeCurrentVelocity(5);
+                mVelocityTracker.computeCurrentVelocity(10);
                 // Log velocity of pixels per second
                 // Best practice to use VelocityTrackerCompat where possible.
 //                double x = (mVelocityTracker.getXVelocity(pointerId));
@@ -69,7 +69,7 @@ public class swipe_listener_class implements View.OnTouchListener
                 //Log.d("TAG", Long.toString(ObjectSizeCalculator.getObjectSize(data_to_send)));
                 Log.d("TAG", "X velocity: " + x_movement);
                 Log.d("TAG", "Y velocity: " + y_movement);
-                new user_input_sender(client).execute(movement_data_to_send, "swipe");
+                new user_input_sender(client).execute("s", x_movement, y_movement);
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
