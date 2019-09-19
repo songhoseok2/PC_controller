@@ -23,6 +23,7 @@ public class swipe_listener_class implements View.OnTouchListener
     @Override
     public boolean onTouch(View v, MotionEvent event)
     {
+        //code from https://developer.android.com/training/gestures/movement
         // pass the events to the gesture detector
         // a return value of true means the detector is handling it
         // a return value of false means the detector didn't
@@ -64,7 +65,6 @@ public class swipe_listener_class implements View.OnTouchListener
 //                String y_movement = String.format("%.3f", y);
                 String x_movement = Float.toString(mVelocityTracker.getXVelocity(pointerId));
                 String y_movement = Float.toString(mVelocityTracker.getYVelocity(pointerId));
-                String movement_data_to_send = x_movement + "_" + y_movement;
 
                 //Log.d("TAG", Long.toString(ObjectSizeCalculator.getObjectSize(data_to_send)));
                 Log.d("TAG", "X velocity: " + x_movement);

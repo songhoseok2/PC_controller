@@ -1,5 +1,6 @@
 package com.example.pc_controller;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;

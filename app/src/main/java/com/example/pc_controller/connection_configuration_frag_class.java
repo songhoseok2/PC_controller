@@ -1,6 +1,7 @@
 package com.example.pc_controller;
 
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -79,7 +80,8 @@ public class connection_configuration_frag_class extends Fragment
                 main_activity_context,
                 mainThreadHandler);
 
-        connection.execute(ip_address_field.getText().toString(), port_number_field.getText().toString());
+        //connection.execute(ip_address_field.getText().toString(), port_number_field.getText().toString());
+        connection.execute("192.168.35.244", "15200");
     }
 
     @Nullable
@@ -87,11 +89,12 @@ public class connection_configuration_frag_class extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
         View connection_configuration_frag_view = inflater.inflate(R.layout.conection_configuration_frag, container, false);
+        this.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         connection_progress_label_frame = connection_configuration_frag_view.findViewById(R.id.connection_progress_label_layout_id);
         connection_progress_image_frame = connection_configuration_frag_view.findViewById(R.id.connection_progress_image_layout_id);
         ip_address_field = connection_configuration_frag_view.findViewById(R.id.ip_address_field_id);
         port_number_field = connection_configuration_frag_view.findViewById(R.id.port_number_field_id);
-
 
         Button connect_button = connection_configuration_frag_view.findViewById(R.id.connect_button_id);
         connect_button.setOnClickListener(new View.OnClickListener()
@@ -99,6 +102,7 @@ public class connection_configuration_frag_class extends Fragment
             @Override
             public void onClick(View view) { connection_button_pressed(view); }
         });
+
         return connection_configuration_frag_view;
     }
 
