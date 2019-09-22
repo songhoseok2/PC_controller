@@ -13,9 +13,9 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
 {
-    private static final int NUMOFOPTIONS = 2;
     private connection_configuration_frag_class connection_configuration_frag;
     private basic_controls_frag_class basic_controls_frag;
+    private mouse_control_frag_class mouse_control_frag;
     private Menu main_menu;
     Handler mainThreadHandler;
 
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity
     {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        for(int i = 1 ; i < NUMOFOPTIONS; ++i)
+        for(int i = 1 ; i < connection_establishment_class.NUMOFOPTIONS; ++i)
         {
             MenuItem current_option = menu.getItem(i);
             current_option.setEnabled(false);
@@ -76,6 +76,13 @@ public class MainActivity extends AppCompatActivity
                 basic_controls_frag = new basic_controls_frag_class(connection_configuration_frag.get_connection().get_client_socket());
                 item.setChecked(true);
                 trans.replace(R.id.main_activity_layout_id, basic_controls_frag)
+                        .commit();
+                return true;
+
+            case R.id.mouse_control_screen_menu_item_id:
+                mouse_control_frag = new mouse_control_frag_class(connection_configuration_frag.get_connection().get_client_socket());
+                item.setChecked(true);
+                trans.replace(R.id.main_activity_layout_id, mouse_control_frag)
                         .commit();
                 return true;
 

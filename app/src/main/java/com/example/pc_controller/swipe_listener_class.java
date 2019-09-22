@@ -1,21 +1,27 @@
 package com.example.pc_controller;
 
+import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
+import android.widget.TextView;
 
 import java.net.Socket;
 //import java.lang.instrument.Instrumentation;
 
 public class swipe_listener_class implements View.OnTouchListener
 {
+    TextView label;
     private VelocityTracker mVelocityTracker = null;
     GestureDetector myDetector;
     private Socket client;
-    public swipe_listener_class(Socket client_in, GestureDetector myDetector_in)
+
+    public swipe_listener_class(Socket client_in, GestureDetector myDetector_in, TextView label_in)
     {
+        label = label_in;
         client = client_in;
         myDetector = myDetector_in;
     }
@@ -23,12 +29,8 @@ public class swipe_listener_class implements View.OnTouchListener
     @Override
     public boolean onTouch(View v, MotionEvent event)
     {
+
         //code from https://developer.android.com/training/gestures/movement
-        // pass the events to the gesture detector
-        // a return value of true means the detector is handling it
-        // a return value of false means the detector didn't
-        // recognize the event
-        //return myDetector.onTouchEvent(event);
 
         int index = event.getActionIndex();
         int action = event.getActionMasked();
@@ -65,11 +67,15 @@ public class swipe_listener_class implements View.OnTouchListener
 //                String y_movement = String.format("%.3f", y);
                 String x_movement = Float.toString(mVelocityTracker.getXVelocity(pointerId));
                 String y_movement = Float.toString(mVelocityTracker.getYVelocity(pointerId));
-
-                //Log.d("TAG", Long.toString(ObjectSizeCalculator.getObjectSize(data_to_send)));
-                Log.d("TAG", "X velocity: " + x_movement);
-                Log.d("TAG", "Y velocity: " + y_movement);
-                new user_input_sender(client).execute("s", x_movement, y_movement);
+                label.setText("x_movement: " + x_movement + ", y_movement: " + y_movement);
+                if(Float.valueOf(x_movement) != 0 && Float.valueOf(y_movement) != 0)
+                {
+                    new user_input_sender(client).executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, "s", x_movement, y_movement);
+                }
+                else
+                {
+                    Log.d("velocity_tag", "Skipping because there was no movement");
+                }
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
@@ -77,6 +83,12 @@ public class swipe_listener_class implements View.OnTouchListener
                 //mVelocityTracker.recycle();
                 break;
         }
-        return true;
+
+        // pass the events to the gesture detector
+        // a return value of true means the detector is handling it
+        // a return value of false means the detector didn't
+        // recognize the event
+        return myDetector.onTouchEvent(event);
+
     }
 }

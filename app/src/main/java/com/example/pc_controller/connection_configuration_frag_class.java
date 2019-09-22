@@ -13,12 +13,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import java.net.Socket;
 
 public class connection_configuration_frag_class extends Fragment
 {
@@ -80,8 +77,8 @@ public class connection_configuration_frag_class extends Fragment
                 main_activity_context,
                 mainThreadHandler);
 
-        //connection.execute(ip_address_field.getText().toString(), port_number_field.getText().toString());
-        connection.execute("192.168.35.244", "15200");
+        connection.execute(ip_address_field.getText().toString(), port_number_field.getText().toString());
+        //connection.execute("192.168.35.244", "15200");
     }
 
     @Nullable

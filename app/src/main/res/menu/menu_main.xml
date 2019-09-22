@@ -15,5 +15,11 @@
             android:orderInCategory="2"
             android:title="@string/basic_control_str"
             app:showAsAction="never" />
+
+        <item
+            android:id="@+id/mouse_control_screen_menu_item_id"
+            android:orderInCategory="3"
+            android:title="@string/mouse_control_str"
+            app:showAsAction="never" />
     </group>
 </menu>
