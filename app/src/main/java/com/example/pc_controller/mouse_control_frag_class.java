@@ -33,9 +33,9 @@ public class mouse_control_frag_class extends Fragment
         View mouse_control_frag_view = inflater.inflate(R.layout.mouse_control_frag, container, false);
         this.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        FrameLayout touch_pad = mouse_control_frag_view.findViewById(R.id.mouse_control_touch_pad_id);
+        FrameLayout touch_pad = mouse_control_frag_view.findViewById(R.id.fps_control_touch_pad_id);
         GestureDetector myDetector = new GestureDetector(new gesture_detector_class());
-        View.OnTouchListener my_touchListener = new swipe_listener_class(client, myDetector, (TextView)mouse_control_frag_view.findViewById(R.id.mouse_control_touch_pad_label_id));
+        View.OnTouchListener my_touchListener = new swipe_listener_class(client, myDetector, (TextView)mouse_control_frag_view.findViewById(R.id.fps_control_touch_pad_label_id));
         touch_pad.setOnTouchListener(my_touchListener);
 
         basic_key_listener_interface key_listener_setter = new basic_key_listener_interface(client);

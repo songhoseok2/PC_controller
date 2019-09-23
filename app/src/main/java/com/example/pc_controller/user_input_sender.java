@@ -30,7 +30,7 @@ public class user_input_sender extends AsyncTask<String, Void, String> {
             {
                 String x_movement = strings[1];
                 String y_movement = strings[2];
-                out.write(("+" + x_movement + "_" + y_movement).getBytes());
+                out.write(("~" + x_movement + "_" + y_movement).getBytes());
                 out.flush();
 //                out.write(strings[1].getBytes());
 //                out.flush();

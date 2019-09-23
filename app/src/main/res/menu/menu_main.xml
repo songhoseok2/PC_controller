@@ -21,5 +21,11 @@
             android:orderInCategory="3"
             android:title="@string/mouse_control_str"
             app:showAsAction="never" />
+
+        <item
+            android:id="@+id/fps_game_control_screen_menu_item_id"
+            android:orderInCategory="4"
+            android:title="@string/fps_game_control_str"
+            app:showAsAction="never" />
     </group>
 </menu>

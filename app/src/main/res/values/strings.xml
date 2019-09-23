@@ -11,4 +11,5 @@
     <string name="connecting_label_str">Connecting...</string>
     <string name="connected_label_str">Connected!</string>
     <string name="failed_connection_label_str">Connection Failed.</string>
+    <string name="fps_game_control_str">FPS Game Control</string>
 </resources>

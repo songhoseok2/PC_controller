@@ -1,7 +1,7 @@
 package com.example.pc_controller;
 
 import android.content.Context;
-import android.net.InetAddresses;
+//import android.net.InetAddresses;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
@@ -25,7 +25,6 @@ import java.net.Socket;
 
 public class connection_establishment_class extends AsyncTask<String, Void, String>
 {
-    public static final int NUMOFOPTIONS = 3;
     boolean is_connected;
     private LinearLayout connection_progress_label_frame;
     private LinearLayout connection_progress_image_frame;
@@ -87,7 +86,7 @@ public class connection_establishment_class extends AsyncTask<String, Void, Stri
             error_image_view.setImageResource(R.drawable.check_png);
             connection_progress_image_frame.addView(error_image_view, 75, 75);
 
-            for(int i = 1 ; i < NUMOFOPTIONS; ++i)
+            for(int i = 1 ; i < MainActivity.NUMOFOPTIONS; ++i)
             {
                 MenuItem current_option = main_menu.getItem(i);
                 current_option.setEnabled(true);

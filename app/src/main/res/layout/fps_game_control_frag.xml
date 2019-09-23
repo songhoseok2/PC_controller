@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fps_game_control_layout_id"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:screenOrientation="landscape">
+
+    <Button
+        android:id="@+id/fps_control_left_click_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Left Click"
+        app:layout_constraintBottom_toBottomOf="@+id/fps_control_middle_mouse_id"
+        app:layout_constraintEnd_toStartOf="@+id/fps_control_middle_mouse_id"
+        app:layout_constraintTop_toBottomOf="@+id/fps_control_touch_pad_id" />
+
+    <Button
+        android:id="@+id/fps_control_right_click_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Right Click"
+        app:layout_constraintBottom_toBottomOf="@+id/fps_control_middle_mouse_id"
+        app:layout_constraintStart_toEndOf="@+id/fps_control_middle_mouse_id"
+        app:layout_constraintTop_toBottomOf="@+id/fps_control_touch_pad_id" />
+
+    <Button
+        android:id="@+id/fps_control_middle_mouse_id"
+        android:layout_width="140dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="5dp"
+        android:text="Middle Mouse Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.81"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fps_control_touch_pad_id" />
+
+    <FrameLayout
+        android:id="@+id/fps_control_touch_pad_id"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:background="@color/cardview_dark_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/fps_control_touch_pad_label_id"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Touch Pad"
+            android:textSize="40dp" />
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/fps_control_q_id"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:text="Q"
+        app:layout_constraintBottom_toBottomOf="@+id/fps_control_w_id"
+        app:layout_constraintEnd_toStartOf="@+id/fps_control_w_id"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/fps_control_w_id" />
+
+    <Button
+        android:id="@+id/fps_control_1_id"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:text="1"
+        app:layout_constraintBottom_toBottomOf="@+id/fps_control_2_id"
+        app:layout_constraintEnd_toStartOf="@+id/fps_control_2_id"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/fps_control_2_id" />
+
+    <Button
+        android:id="@+id/fps_control_2_id"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:text="2"
+        app:layout_constraintBottom_toTopOf="@+id/fps_control_w_id"
+        app:layout_constraintEnd_toEndOf="@+id/fps_control_w_id"
+        app:layout_constraintStart_toStartOf="@+id/fps_control_w_id"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/fps_control_3_id"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:text="3"
+        app:layout_constraintBottom_toBottomOf="@+id/fps_control_2_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/fps_control_2_id"
+        app:layout_constraintTop_toTopOf="@+id/fps_control_2_id" />
+
+    <Button
+        android:id="@+id/fps_control_4_id"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:text="4"
+        app:layout_constraintBottom_toBottomOf="@+id/fps_control_2_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/fps_control_3_id"
+        app:layout_constraintTop_toTopOf="@+id/fps_control_2_id" />
+
+    <Button
+        android:id="@+id/fps_control_f_id"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:text="F"
+        app:layout_constraintBottom_toBottomOf="@+id/fps_control_d_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/fps_control_d_id"
+        app:layout_constraintTop_toTopOf="@+id/fps_control_d_id" />
+
+    <Button
+        android:id="@+id/fps_control_r_id"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:text="R"
+        app:layout_constraintBottom_toBottomOf="@+id/fps_control_e_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/fps_control_e_id"
+        app:layout_constraintTop_toTopOf="@+id/fps_control_e_id" />
+
+    <Button
+        android:id="@+id/fps_control_c_id"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:text="C"
+        app:layout_constraintBottom_toBottomOf="@+id/fps_control_x_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/fps_control_x_id"
+        app:layout_constraintTop_toTopOf="@+id/fps_control_x_id" />
+
+    <Button
+        android:id="@+id/fps_control_x_id"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:text="X"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/fps_control_s_id"
+        app:layout_constraintStart_toEndOf="@+id/fps_control_a_id"
+        app:layout_constraintTop_toBottomOf="@+id/fps_control_s_id"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/fps_control_z_id"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:text="Z"
+        app:layout_constraintBottom_toBottomOf="@+id/fps_control_x_id"
+        app:layout_constraintEnd_toStartOf="@+id/fps_control_x_id"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/fps_control_x_id" />
+
+    <Button
+        android:id="@+id/fps_control_ctrl_id"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:text="Ctrl"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/fps_control_shift_id"
+        app:layout_constraintStart_toStartOf="@+id/fps_control_shift_id"
+        app:layout_constraintTop_toBottomOf="@+id/fps_control_shift_id"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/fps_control_e_id"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:text="E"
+        app:layout_constraintBottom_toBottomOf="@+id/fps_control_w_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/fps_control_s_id"
+        app:layout_constraintTop_toTopOf="@+id/fps_control_w_id" />
+
+    <Button
+        android:id="@+id/fps_control_d_id"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:text="D"
+        app:layout_constraintBottom_toBottomOf="@+id/fps_control_s_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/fps_control_s_id"
+        app:layout_constraintTop_toTopOf="@+id/fps_control_s_id" />
+
+    <Button
+        android:id="@+id/fps_control_s_id"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:text="S"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.6" />
+
+    <Button
+        android:id="@+id/fps_control_w_id"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:text="W"
+        app:layout_constraintBottom_toTopOf="@+id/fps_control_s_id"
+        app:layout_constraintEnd_toEndOf="@+id/fps_control_s_id"
+        app:layout_constraintStart_toEndOf="@+id/fps_control_a_id"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/fps_control_a_id"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:text="A"
+        app:layout_constraintBottom_toBottomOf="@+id/fps_control_s_id"
+        app:layout_constraintEnd_toStartOf="@+id/fps_control_s_id"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/fps_control_s_id" />
+
+    <Button
+        android:id="@+id/fps_control_shift_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Shift"
+        app:layout_constraintBottom_toBottomOf="@+id/fps_control_z_id"
+        app:layout_constraintEnd_toStartOf="@+id/fps_control_z_id"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/fps_control_z_id" />
+
+    <Button
+        android:id="@+id/fps_control_tab_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tab"
+        app:layout_constraintBottom_toTopOf="@+id/fps_control_a_id"
+        app:layout_constraintEnd_toStartOf="@+id/fps_control_q_id"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/fps_control_q_id" />
+</androidx.constraintlayout.widget.ConstraintLayout>
