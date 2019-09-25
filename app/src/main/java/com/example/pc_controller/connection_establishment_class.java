@@ -1,7 +1,6 @@
 package com.example.pc_controller;
 
 import android.content.Context;
-//import android.net.InetAddresses;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
@@ -11,14 +10,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.Socket;
 
 
@@ -26,28 +23,31 @@ import java.net.Socket;
 public class connection_establishment_class extends AsyncTask<String, Void, String>
 {
     boolean is_connected;
-    private LinearLayout connection_progress_label_frame;
     private LinearLayout connection_progress_image_frame;
     private TextView connection_progress_label;
     private Menu main_menu;
     private Button connect_button;
+    private Button cancel_button;
     private Context main_activity_context;
     private Handler mainThreadHandler;
     public Socket client;
+    ProgressBar connection_progress_bar;
 
-    public connection_establishment_class(LinearLayout connection_progress_label_frame_in,
-                                          LinearLayout connection_progress_image_frame_in,
+    public connection_establishment_class(LinearLayout connection_progress_image_frame_in,
                                           TextView connection_progress_label_in,
                                           Menu main_menu_in,
                                           Button connect_button_in,
+                                          Button cancel_button_in,
+                                          ProgressBar connection_progress_bar_in,
                                           Context main_activity_context_in,
                                           Handler mainThreadHandler_in)
     {
-        connection_progress_label_frame = connection_progress_label_frame_in;
         connection_progress_image_frame = connection_progress_image_frame_in;
         connection_progress_label = connection_progress_label_in;
         main_menu = main_menu_in;
         connect_button = connect_button_in;
+        cancel_button = cancel_button_in;
+        connection_progress_bar = connection_progress_bar_in;
         main_activity_context = main_activity_context_in;
         mainThreadHandler = mainThreadHandler_in;
     }
@@ -55,23 +55,59 @@ public class connection_establishment_class extends AsyncTask<String, Void, Stri
     @Override
     protected String doInBackground(String... strings)
     {
-        String ip_address = strings[0];
-        int port_number = Integer.parseInt(strings[1]);
+        is_connected = false;
+        final String ip_address = strings[0];
+        final int port_number = Integer.parseInt(strings[1]);
+
+        //connection to a socket must be a new thread. this is because socket initialization
+        //is a blocking process and while socket is not connected,
+        //it will prevent doInBackground from progressing further, so there's no point in calling
+        //cancel in the connect_button_pressed function.
+        //therefore 2 threads are required: one for connecting the socket and the other for
+        //listening for a cancel call from the connect_button_pressed function and terminating the
+        //first thread when cancle call is received.
+        final Thread connection_thread = new Thread()
+        {
+            @Override
+            public void run()
+            {
+                try
+                {
+                    client = new Socket(ip_address, port_number);
+
+                    Message message = new Message();
+                    message.what = 1;
+                    mainThreadHandler.sendMessage(message);
+                    is_connected = true;
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+                cancel_button.setVisibility(View.INVISIBLE);
+            }
+        };
+        connection_thread.start();
+
+        Thread cancel_listener_thread = new Thread()
+        {
+            @Override
+            public void run()
+            {
+                while(!isCancelled() && !is_connected) {}
+                if(!is_connected) { connection_thread.interrupt(); }
+            }
+        };
+        cancel_listener_thread.start();
         try
         {
-           client = new Socket(ip_address, port_number);
-
-            Message message = new Message();
-            message.what = 1;
-            message.arg1 = 1;
-            mainThreadHandler.sendMessage(message);
-            is_connected = true;
+            cancel_listener_thread.join();
         }
-        catch (IOException e)
+        catch (InterruptedException e)
         {
             e.printStackTrace();
-            is_connected = false;
         }
+
         return is_connected ? "Connected" : "Not Connected";
     }
 
@@ -112,4 +148,15 @@ public class connection_establishment_class extends AsyncTask<String, Void, Stri
     {
         return client;
     }
+
+    @Override
+    protected void onCancelled()
+    {
+        connection_progress_label.setText("");
+        connection_progress_bar.setVisibility(View.GONE);
+        super.onCancelled();
+    }
+
+
 }
+

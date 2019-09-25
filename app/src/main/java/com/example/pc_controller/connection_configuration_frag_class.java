@@ -25,8 +25,11 @@ public class connection_configuration_frag_class extends Fragment
     Context main_activity_context;
     LinearLayout connection_progress_label_frame;
     LinearLayout connection_progress_image_frame;
+    TextView connection_progress_label;
     EditText ip_address_field;
     EditText port_number_field;
+    Button cancel_button;
+    ProgressBar connection_progress_bar;
 
     public connection_configuration_frag_class(Context main_activity_context_in, Menu main_menu_in, Handler mainThreadHandler_in)
     {
@@ -55,30 +58,31 @@ public class connection_configuration_frag_class extends Fragment
             is_input_missing = true;
         }
         if(is_input_missing) { return; }
+        cancel_button.setVisibility(View.VISIBLE);
 
         //reset all views in the frames or else the views will multiply each time button is clicked
         connection_progress_label_frame.removeAllViews();
         connection_progress_image_frame.removeAllViews();
 
-        Button connect_button = view.findViewById(R.id.connect_button_id);
+        final Button connect_button = view.findViewById(R.id.connect_button_id);
         connect_button.setEnabled(false);
 
-        TextView connection_progress_label = new TextView(view.getContext());
+        connection_progress_label = new TextView(view.getContext());
         connection_progress_label.setText(getResources().getString(R.string.connecting_label_str));
         connection_progress_label_frame.addView(connection_progress_label);
-        ProgressBar connection_progress_bar = new ProgressBar( view.getContext());
+        connection_progress_bar = new ProgressBar(view.getContext());
         connection_progress_image_frame.addView(connection_progress_bar);
 
-        connection = new connection_establishment_class(connection_progress_label_frame,
-                connection_progress_image_frame,
+        connection = new connection_establishment_class(connection_progress_image_frame,
                 connection_progress_label,
                 main_menu,
                 connect_button,
+                cancel_button,
+                connection_progress_bar,
                 main_activity_context,
                 mainThreadHandler);
 
         connection.execute(ip_address_field.getText().toString(), port_number_field.getText().toString());
-        //connection.execute("192.168.35.244", "15200");
     }
 
     @Nullable
@@ -93,7 +97,19 @@ public class connection_configuration_frag_class extends Fragment
         ip_address_field = connection_configuration_frag_view.findViewById(R.id.ip_address_field_id);
         port_number_field = connection_configuration_frag_view.findViewById(R.id.port_number_field_id);
 
-        Button connect_button = connection_configuration_frag_view.findViewById(R.id.connect_button_id);
+        final Button connect_button = connection_configuration_frag_view.findViewById(R.id.connect_button_id);
+        cancel_button = connection_configuration_frag_view.findViewById(R.id.cancel_button_id);
+        cancel_button.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                connection.cancel(true);
+                connect_button.setEnabled(true);
+                cancel_button.setVisibility(View.INVISIBLE);
+            }
+        });
+        cancel_button.setVisibility(View.INVISIBLE);
         connect_button.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -104,12 +120,14 @@ public class connection_configuration_frag_class extends Fragment
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(Context context)
+    {
         super.onAttach(context);
     }
 
     @Override
-    public void onDetach() {
+    public void onDetach()
+    {
         super.onDetach();
     }
 }
