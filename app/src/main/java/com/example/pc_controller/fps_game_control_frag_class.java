@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -35,7 +36,11 @@ public class fps_game_control_frag_class extends Fragment
 
         FrameLayout touch_pad = fps_game_control_frag_view.findViewById(R.id.fps_control_touch_pad_id);
         GestureDetector myDetector = new GestureDetector(new gesture_detector_class());
-        View.OnTouchListener my_touchListener = new swipe_listener_class(client, myDetector, (TextView)fps_game_control_frag_view.findViewById(R.id.fps_control_touch_pad_label_id));
+        View.OnTouchListener my_touchListener = new swipe_listener_class(
+                client,
+                myDetector,
+                (TextView)fps_game_control_frag_view.findViewById(R.id.fps_control_touch_pad_label_id),
+                (SeekBar)fps_game_control_frag_view.findViewById(R.id.fps_control_sensitivity_bar_id));
         touch_pad.setOnTouchListener(my_touchListener);
 
         basic_key_listener_interface key_listener_setter = new basic_key_listener_interface(client);
@@ -59,12 +64,14 @@ public class fps_game_control_frag_class extends Fragment
         key_listener_setter.set_basic_key_button_listener((Button)fps_game_control_frag_view.findViewById(R.id.fps_control_s_id), "031");
         key_listener_setter.set_basic_key_button_listener((Button)fps_game_control_frag_view.findViewById(R.id.fps_control_d_id), "032");
         key_listener_setter.set_basic_key_button_listener((Button)fps_game_control_frag_view.findViewById(R.id.fps_control_f_id), "033");
+        key_listener_setter.set_basic_key_button_listener((Button)fps_game_control_frag_view.findViewById(R.id.fps_control_g_id), "034");
 
         key_listener_setter.set_basic_key_button_listener((Button)fps_game_control_frag_view.findViewById(R.id.fps_control_shift_id), "042");
         key_listener_setter.set_basic_key_button_listener((Button)fps_game_control_frag_view.findViewById(R.id.fps_control_z_id), "044");
         key_listener_setter.set_basic_key_button_listener((Button)fps_game_control_frag_view.findViewById(R.id.fps_control_x_id), "045");
         key_listener_setter.set_basic_key_button_listener((Button)fps_game_control_frag_view.findViewById(R.id.fps_control_c_id), "046");
-        key_listener_setter.set_basic_key_button_listener((Button)fps_game_control_frag_view.findViewById(R.id.fps_control_c_id), "034");
+        key_listener_setter.set_basic_key_button_listener((Button)fps_game_control_frag_view.findViewById(R.id.fps_control_v_id), "047");
+        key_listener_setter.set_basic_key_button_listener((Button)fps_game_control_frag_view.findViewById(R.id.fps_control_b_id), "048");
 
         key_listener_setter.set_basic_key_button_listener((Button)fps_game_control_frag_view.findViewById(R.id.fps_control_ctrl_id), "029");
 

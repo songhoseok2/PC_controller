@@ -45,10 +45,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/cardview_dark_background"
+        app:layout_constraintTop_toBottomOf="@+id/mouse_control_sensitivity_label_id"
         app:layout_constraintBottom_toTopOf="@+id/mouse_control_middle_click_id"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/fps_control_touch_pad_label_id"
@@ -58,5 +58,26 @@
             android:text="Touch Pad"
             android:textSize="40dp" />
     </FrameLayout>
+
+    <TextView
+        android:id="@+id/mouse_control_sensitivity_label_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sensitivity:"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/fps_control_touch_pad_id"
+        app:layout_constraintEnd_toStartOf="@+id/mouse_control_sensitivity_bar_id"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <SeekBar
+        android:id="@+id/mouse_control_sensitivity_bar_id"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/fps_control_touch_pad_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/mouse_control_sensitivity_label_id"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
