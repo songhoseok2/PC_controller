@@ -41,7 +41,7 @@ public class fps_game_control_frag_class extends Fragment
         basic_key_listener_interface key_listener_setter = new basic_key_listener_interface(client);
         key_listener_setter.set_basic_key_button_listener((Button)fps_game_control_frag_view.findViewById(R.id.fps_control_left_click_id), "256");
         key_listener_setter.set_basic_key_button_listener((Button)fps_game_control_frag_view.findViewById(R.id.fps_control_right_click_id), "257");
-        key_listener_setter.set_basic_key_button_listener((Button)fps_game_control_frag_view.findViewById(R.id.fps_control_middle_mouse_id), "258");
+        key_listener_setter.set_basic_key_button_listener((Button)fps_game_control_frag_view.findViewById(R.id.fps_control_middle_click_id), "258");
 
         key_listener_setter.set_basic_key_button_listener((Button)fps_game_control_frag_view.findViewById(R.id.fps_control_1_id), "002");
         key_listener_setter.set_basic_key_button_listener((Button)fps_game_control_frag_view.findViewById(R.id.fps_control_2_id), "003");
@@ -54,6 +54,7 @@ public class fps_game_control_frag_class extends Fragment
         key_listener_setter.set_basic_key_button_listener((Button)fps_game_control_frag_view.findViewById(R.id.fps_control_e_id), "018");
         key_listener_setter.set_basic_key_button_listener((Button)fps_game_control_frag_view.findViewById(R.id.fps_control_r_id), "019");
 
+        key_listener_setter.set_basic_key_button_listener((Button)fps_game_control_frag_view.findViewById(R.id.fps_control_caps_id), "058");
         key_listener_setter.set_basic_key_button_listener((Button)fps_game_control_frag_view.findViewById(R.id.fps_control_a_id), "030");
         key_listener_setter.set_basic_key_button_listener((Button)fps_game_control_frag_view.findViewById(R.id.fps_control_s_id), "031");
         key_listener_setter.set_basic_key_button_listener((Button)fps_game_control_frag_view.findViewById(R.id.fps_control_d_id), "032");
@@ -63,6 +64,7 @@ public class fps_game_control_frag_class extends Fragment
         key_listener_setter.set_basic_key_button_listener((Button)fps_game_control_frag_view.findViewById(R.id.fps_control_z_id), "044");
         key_listener_setter.set_basic_key_button_listener((Button)fps_game_control_frag_view.findViewById(R.id.fps_control_x_id), "045");
         key_listener_setter.set_basic_key_button_listener((Button)fps_game_control_frag_view.findViewById(R.id.fps_control_c_id), "046");
+        key_listener_setter.set_basic_key_button_listener((Button)fps_game_control_frag_view.findViewById(R.id.fps_control_c_id), "034");
 
         key_listener_setter.set_basic_key_button_listener((Button)fps_game_control_frag_view.findViewById(R.id.fps_control_ctrl_id), "029");
 

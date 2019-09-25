@@ -41,7 +41,7 @@ public class mouse_control_frag_class extends Fragment
         basic_key_listener_interface key_listener_setter = new basic_key_listener_interface(client);
         key_listener_setter.set_basic_key_button_listener((Button)mouse_control_frag_view.findViewById(R.id.mouse_control_left_click_id), "256");
         key_listener_setter.set_basic_key_button_listener((Button)mouse_control_frag_view.findViewById(R.id.mouse_control_right_click_id), "257");
-        key_listener_setter.set_basic_key_button_listener((Button)mouse_control_frag_view.findViewById(R.id.mouse_control_middle_mouse_id), "258");
+        key_listener_setter.set_basic_key_button_listener((Button)mouse_control_frag_view.findViewById(R.id.mouse_control_middle_click_id), "258");
 
         return mouse_control_frag_view;
     }

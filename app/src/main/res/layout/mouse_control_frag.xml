@@ -10,35 +10,31 @@
 
     <Button
         android:id="@+id/mouse_control_left_click_id"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
-        android:layout_marginLeft="22dp"
         android:text="Left Click"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/mouse_control_middle_mouse_id"
+        app:layout_constraintEnd_toStartOf="@+id/mouse_control_middle_click_id"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fps_control_touch_pad_id"
         app:layout_constraintVertical_bias="0.50" />
 
     <Button
         android:id="@+id/mouse_control_right_click_id"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="22dp"
-        android:layout_marginRight="22dp"
         android:text="Right Click"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/mouse_control_middle_mouse_id"
+        app:layout_constraintStart_toEndOf="@+id/mouse_control_middle_click_id"
         app:layout_constraintTop_toBottomOf="@+id/fps_control_touch_pad_id"
         app:layout_constraintVertical_bias="0.50" />
 
     <Button
-        android:id="@+id/mouse_control_middle_mouse_id"
-        android:layout_width="111dp"
-        android:layout_height="69dp"
-        android:text="Middle Mouse Button"
+        android:id="@+id/mouse_control_middle_click_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Middle Click"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/mouse_control_right_click_id"
         app:layout_constraintStart_toEndOf="@+id/mouse_control_left_click_id"
@@ -47,13 +43,12 @@
     <FrameLayout
         android:id="@+id/fps_control_touch_pad_id"
         android:layout_width="match_parent"
-        android:layout_height="450dp"
+        android:layout_height="0dp"
         android:background="@color/cardview_dark_background"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/mouse_control_middle_click_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/fps_control_touch_pad_label_id"

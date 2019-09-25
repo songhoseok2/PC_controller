@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:screenOrientation="landscape">
 
     <LinearLayout
+        android:id="@+id/basic_control_1st_line_id"
         android:layout_width="wrap_content"
-        android:layout_height="47dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="16.67"
         android:orientation="horizontal">
 
         <Button
@@ -103,8 +105,10 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/basic_control_2nd_line_id"
         android:layout_width="wrap_content"
-        android:layout_height="47dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="16.67"
         android:orientation="horizontal">
 
         <Button
@@ -203,12 +207,14 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="BackSpace" />
+            android:text="bck" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/basic_control_3rd_line_id"
         android:layout_width="wrap_content"
-        android:layout_height="47dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="16.67"
         android:orientation="horizontal">
 
         <Button
@@ -311,8 +317,10 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/basic_control_4th_line_id"
         android:layout_width="wrap_content"
         android:layout_height="47dp"
+        android:layout_weight="16.67"
         android:orientation="horizontal">
 
         <Button
@@ -408,8 +416,10 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/basic_control_5th_line_id"
         android:layout_width="wrap_content"
         android:layout_height="47dp"
+        android:layout_weight="16.67"
         android:orientation="horizontal">
 
         <Button
@@ -491,8 +501,10 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/basic_control_6th_line_id"
         android:layout_width="wrap_content"
         android:layout_height="47dp"
+        android:layout_weight="16.67"
         android:orientation="horizontal">
 
         <Button

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -20,6 +21,7 @@ import androidx.fragment.app.Fragment;
 public class connection_configuration_frag_class extends Fragment
 {
     Handler mainThreadHandler;
+    Handler connection_handler;
     connection_establishment_class connection;
     Menu main_menu;
     Context main_activity_context;
@@ -80,7 +82,8 @@ public class connection_configuration_frag_class extends Fragment
                 cancel_button,
                 connection_progress_bar,
                 main_activity_context,
-                mainThreadHandler);
+                mainThreadHandler,
+                connection_handler);
 
         connection.execute(ip_address_field.getText().toString(), port_number_field.getText().toString());
     }
@@ -115,6 +118,18 @@ public class connection_configuration_frag_class extends Fragment
             @Override
             public void onClick(View view) { connection_button_pressed(view); }
         });
+
+        connection_handler = new Handler()
+        {
+            @Override
+            public void handleMessage(Message msg)
+            {
+                if(msg.what == 1)
+                {
+                    cancel_button.setVisibility(View.INVISIBLE);
+                }
+            }
+        };
 
         return connection_configuration_frag_view;
     }

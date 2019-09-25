@@ -15,7 +15,10 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.io.BufferedOutputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.Socket;
 
 
@@ -30,6 +33,7 @@ public class connection_establishment_class extends AsyncTask<String, Void, Stri
     private Button cancel_button;
     private Context main_activity_context;
     private Handler mainThreadHandler;
+    private Handler connection_handler;
     public Socket client;
     ProgressBar connection_progress_bar;
 
@@ -40,7 +44,8 @@ public class connection_establishment_class extends AsyncTask<String, Void, Stri
                                           Button cancel_button_in,
                                           ProgressBar connection_progress_bar_in,
                                           Context main_activity_context_in,
-                                          Handler mainThreadHandler_in)
+                                          Handler mainThreadHandler_in,
+                                          Handler connection_handler_in)
     {
         connection_progress_image_frame = connection_progress_image_frame_in;
         connection_progress_label = connection_progress_label_in;
@@ -50,6 +55,7 @@ public class connection_establishment_class extends AsyncTask<String, Void, Stri
         connection_progress_bar = connection_progress_bar_in;
         main_activity_context = main_activity_context_in;
         mainThreadHandler = mainThreadHandler_in;
+        connection_handler = connection_handler_in;
     }
 
     @Override
@@ -65,7 +71,7 @@ public class connection_establishment_class extends AsyncTask<String, Void, Stri
         //cancel in the connect_button_pressed function.
         //therefore 2 threads are required: one for connecting the socket and the other for
         //listening for a cancel call from the connect_button_pressed function and terminating the
-        //first thread when cancle call is received.
+        //first thread when cancel call is received.
         final Thread connection_thread = new Thread()
         {
             @Override
@@ -75,6 +81,21 @@ public class connection_establishment_class extends AsyncTask<String, Void, Stri
                 {
                     client = new Socket(ip_address, port_number);
 
+                    //socket is alive even when thread is terminated. therefore
+                    //this 'dead' socket needs to notify the server that this socket isn't valid if
+                    //the cancel button was pressed
+                    OutputStream output = client.getOutputStream();
+                    DataOutputStream out = new DataOutputStream(new BufferedOutputStream(output));
+                    if(isCancelled())
+                    {
+                        out.write("invalid".getBytes());
+                        out.flush();
+                        client.close();
+                        is_connected = false;
+                        return;
+                    }
+                    out.write("valid".getBytes());
+                    out.flush();
                     Message message = new Message();
                     message.what = 1;
                     mainThreadHandler.sendMessage(message);
@@ -84,11 +105,16 @@ public class connection_establishment_class extends AsyncTask<String, Void, Stri
                 {
                     e.printStackTrace();
                 }
-                cancel_button.setVisibility(View.INVISIBLE);
+                Message message = new Message();
+                message.what = 1;
+                connection_handler.sendMessage(message);
             }
         };
         connection_thread.start();
 
+        //this thread is still required even when cancelling is handled in the above thread,
+        //because otherwise there is no way to remove the progress bar and the text as soon as the
+        //cancel button is pressed.
         Thread cancel_listener_thread = new Thread()
         {
             @Override
