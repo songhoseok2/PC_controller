@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,12 +24,11 @@ import java.net.Socket;
 
 public class connection_establishment_class extends AsyncTask<String, Void, String>
 {
-    boolean is_connected;
+    static boolean is_connected;
     private LinearLayout connection_progress_image_frame;
     private TextView connection_progress_label;
     private Menu main_menu;
     private Button connect_button;
-    private Button cancel_button;
     private Context main_activity_context;
     private Handler mainThreadHandler;
     private Handler connection_handler;
@@ -41,7 +39,6 @@ public class connection_establishment_class extends AsyncTask<String, Void, Stri
                                           TextView connection_progress_label_in,
                                           Menu main_menu_in,
                                           Button connect_button_in,
-                                          Button cancel_button_in,
                                           ProgressBar connection_progress_bar_in,
                                           Context main_activity_context_in,
                                           Handler mainThreadHandler_in,
@@ -51,7 +48,6 @@ public class connection_establishment_class extends AsyncTask<String, Void, Stri
         connection_progress_label = connection_progress_label_in;
         main_menu = main_menu_in;
         connect_button = connect_button_in;
-        cancel_button = cancel_button_in;
         connection_progress_bar = connection_progress_bar_in;
         main_activity_context = main_activity_context_in;
         mainThreadHandler = mainThreadHandler_in;
@@ -141,15 +137,15 @@ public class connection_establishment_class extends AsyncTask<String, Void, Stri
     protected void onPostExecute(String result)
     {
         connection_progress_image_frame.removeAllViews();
-        if(is_connected)
+        if (is_connected)
         {
             connection_progress_label.setText(R.string.connected_label_str);
+            connect_button.setText("Connected to a PC");
             ImageView error_image_view = new ImageView(main_activity_context);
             error_image_view.setImageResource(R.drawable.check_png);
             connection_progress_image_frame.addView(error_image_view, 75, 75);
 
-            for(int i = 1 ; i < MainActivity.NUMOFOPTIONS; ++i)
-            {
+            for (int i = 1; i < MainActivity.NUMOFOPTIONS; ++i) {
                 MenuItem current_option = main_menu.getItem(i);
                 current_option.setEnabled(true);
             }
@@ -158,7 +154,7 @@ public class connection_establishment_class extends AsyncTask<String, Void, Stri
         {
             connection_progress_label.setText(R.string.failed_connection_label_str);
 
-            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams)connection_progress_image_frame.getLayoutParams();
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) connection_progress_image_frame.getLayoutParams();
             params.setMargins(0, 100, 0, 0);
             connection_progress_image_frame.setLayoutParams(params);
 
@@ -167,7 +163,7 @@ public class connection_establishment_class extends AsyncTask<String, Void, Stri
             connection_progress_image_frame.addView(error_image_view, 75, 75);
         }
 
-        connect_button.setEnabled(true);
+        connect_button.setEnabled(!is_connected);
     }
 
     public Socket get_client_socket()

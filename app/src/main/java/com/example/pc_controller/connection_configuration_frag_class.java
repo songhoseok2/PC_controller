@@ -79,7 +79,6 @@ public class connection_configuration_frag_class extends Fragment
                 connection_progress_label,
                 main_menu,
                 connect_button,
-                cancel_button,
                 connection_progress_bar,
                 main_activity_context,
                 mainThreadHandler,
@@ -99,7 +98,6 @@ public class connection_configuration_frag_class extends Fragment
         connection_progress_image_frame = connection_configuration_frag_view.findViewById(R.id.connection_progress_image_layout_id);
         ip_address_field = connection_configuration_frag_view.findViewById(R.id.ip_address_field_id);
         port_number_field = connection_configuration_frag_view.findViewById(R.id.port_number_field_id);
-
         final Button connect_button = connection_configuration_frag_view.findViewById(R.id.connect_button_id);
         cancel_button = connection_configuration_frag_view.findViewById(R.id.cancel_button_id);
         cancel_button.setOnClickListener(new View.OnClickListener()
@@ -113,11 +111,21 @@ public class connection_configuration_frag_class extends Fragment
             }
         });
         cancel_button.setVisibility(View.INVISIBLE);
-        connect_button.setOnClickListener(new View.OnClickListener()
+
+        if(connection_establishment_class.is_connected)
         {
-            @Override
-            public void onClick(View view) { connection_button_pressed(view); }
-        });
+            connect_button.setText("Connected to a PC");
+            connect_button.setEnabled(false);
+        }
+        else
+        {
+            connect_button.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view) { connection_button_pressed(view); }
+            });
+        }
+
 
         connection_handler = new Handler()
         {

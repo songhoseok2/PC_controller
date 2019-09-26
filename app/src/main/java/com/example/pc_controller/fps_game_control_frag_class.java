@@ -21,6 +21,7 @@ import java.net.Socket;
 public class fps_game_control_frag_class extends Fragment
 {
     Socket client;
+    SeekBar sensitivity_bar;
 
     public fps_game_control_frag_class(Socket client_in)
     {
@@ -33,14 +34,15 @@ public class fps_game_control_frag_class extends Fragment
     {
         View fps_game_control_frag_view = inflater.inflate(R.layout.fps_game_control_frag, container, false);
         this.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-
+        sensitivity_bar = fps_game_control_frag_view.findViewById(R.id.fps_control_sensitivity_bar_id);
+        if(savedInstanceState != null) { sensitivity_bar.setProgress(savedInstanceState.getInt("sensitivity_bar_value")); }
         FrameLayout touch_pad = fps_game_control_frag_view.findViewById(R.id.fps_control_touch_pad_id);
         GestureDetector myDetector = new GestureDetector(new gesture_detector_class());
         View.OnTouchListener my_touchListener = new swipe_listener_class(
                 client,
                 myDetector,
                 (TextView)fps_game_control_frag_view.findViewById(R.id.fps_control_touch_pad_label_id),
-                (SeekBar)fps_game_control_frag_view.findViewById(R.id.fps_control_sensitivity_bar_id));
+                sensitivity_bar);
         touch_pad.setOnTouchListener(my_touchListener);
 
         basic_key_listener_interface key_listener_setter = new basic_key_listener_interface(client);
@@ -84,5 +86,12 @@ public class fps_game_control_frag_class extends Fragment
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState)
+    {
+        outState.putInt("sensitivity_bar_value", sensitivity_bar.getProgress());
+        super.onSaveInstanceState(outState);
     }
 }

@@ -63,10 +63,6 @@ public class swipe_listener_class implements View.OnTouchListener
                 mVelocityTracker.computeCurrentVelocity(1 * sensitivity_bar.getProgress());
                 // Log velocity of pixels per second
                 // Best practice to use VelocityTrackerCompat where possible.
-//                double x = (mVelocityTracker.getXVelocity(pointerId));
-//                double y = (mVelocityTracker.getYVelocity(pointerId));
-//                String x_movement = String.format("%.3f", x);
-//                String y_movement = String.format("%.3f", y);
                 Float x_movement = mVelocityTracker.getXVelocity(pointerId);
                 Float y_movement = mVelocityTracker.getYVelocity(pointerId);
                 String x_movement_str = Float.toString(x_movement);

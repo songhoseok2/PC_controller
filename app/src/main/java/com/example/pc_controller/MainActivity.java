@@ -1,6 +1,5 @@
 package com.example.pc_controller;
 
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -24,42 +23,49 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        mainThreadHandler = new Handler()
+        if(savedInstanceState == null)
         {
-            @Override
-            public void handleMessage(Message msg)
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
+            mainThreadHandler = new Handler()
             {
-                if(msg.what == 1)
+                @Override
+                public void handleMessage(Message msg)
                 {
-                    Toast.makeText(getApplicationContext(),
-                            "Connection to " + connection_configuration_frag.ip_address_field.getText() + " : " + connection_configuration_frag.port_number_field.getText() + " successful. You now have access to the controls of the PC.",
-                            Toast.LENGTH_LONG).show();
+                    if(msg.what == 1)
+                    {
+                        Toast.makeText(getApplicationContext(),
+                                "Connection to " + connection_configuration_frag.ip_address_field.getText() + " : " + connection_configuration_frag.port_number_field.getText() + " successful. You now have access to the controls of the PC.",
+                                Toast.LENGTH_LONG).show();
+                    }
                 }
-            }
-        };
-        Toast.makeText(this,
-                "You need to first establish a connection to a PC in order to access the control.",
-                Toast.LENGTH_LONG).show();
+            };
+            Toast.makeText(this,
+                    "You need to first establish a connection to a PC in order to access the control.",
+                    Toast.LENGTH_LONG).show();
+        }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        for(int i = 1 ; i < NUMOFOPTIONS; ++i)
+        if(menu.findItem(0) == null )
         {
-            MenuItem current_option = menu.getItem(i);
-            current_option.setEnabled(false);
+            // Inflate the menu; this adds items to the action bar if it is present.
+            getMenuInflater().inflate(R.menu.menu_main, menu);
+            for(int i = 1 ; i < NUMOFOPTIONS; ++i)
+            {
+                MenuItem current_option = menu.getItem(i);
+                current_option.setEnabled(false);
+            }
+
+            if(connection_configuration_frag == null) { connection_configuration_frag = new connection_configuration_frag_class(this.getApplicationContext(), menu, mainThreadHandler); }
+            onOptionsItemSelected(menu.findItem(R.id.connection_configuration_menu_item_id));
+            main_menu = menu;
         }
 
-        MenuItem begin_connection = menu.findItem(R.id.connection_configuration_menu_item_id);
-        main_menu = menu;
-        connection_configuration_frag = new connection_configuration_frag_class(this.getApplicationContext(), main_menu, mainThreadHandler);
-        onOptionsItemSelected(begin_connection);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -75,21 +81,21 @@ public class MainActivity extends AppCompatActivity
                 return true;
 
             case R.id.basic_screen_menu_item_id:
-                basic_controls_frag = new basic_controls_frag_class(connection_configuration_frag.get_connection().get_client_socket());
+                if(basic_controls_frag == null) { basic_controls_frag = new basic_controls_frag_class(connection_configuration_frag.get_connection().get_client_socket()); }
                 item.setChecked(true);
                 trans.replace(R.id.main_activity_layout_id, basic_controls_frag)
                         .commit();
                 return true;
 
             case R.id.mouse_control_screen_menu_item_id:
-                mouse_control_frag = new mouse_control_frag_class(connection_configuration_frag.get_connection().get_client_socket());
+                if(mouse_control_frag == null) { mouse_control_frag = new mouse_control_frag_class(connection_configuration_frag.get_connection().get_client_socket()); }
                 item.setChecked(true);
                 trans.replace(R.id.main_activity_layout_id, mouse_control_frag)
                         .commit();
                 return true;
 
             case R.id.fps_game_control_screen_menu_item_id:
-                fps_game_control_frag = new fps_game_control_frag_class(connection_configuration_frag.get_connection().get_client_socket());
+                if(fps_game_control_frag == null) { fps_game_control_frag = new fps_game_control_frag_class(connection_configuration_frag.get_connection().get_client_socket()); }
                 item.setChecked(true);
                 trans.replace(R.id.main_activity_layout_id, fps_game_control_frag)
                         .commit();
@@ -98,5 +104,11 @@ public class MainActivity extends AppCompatActivity
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        onOptionsItemSelected(main_menu.findItem(R.id.connection_configuration_menu_item_id));
     }
 }

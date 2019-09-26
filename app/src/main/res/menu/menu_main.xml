@@ -1,7 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.pc_controller.MainActivity">
+    tools:context="com.example.pc_controller.MainActivity"
+    android:id="@+id/main_menu_id">
     <group
         android:id="@+id/menu_group_id"
         android:checkableBehavior="single">
