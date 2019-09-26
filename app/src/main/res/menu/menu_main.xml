@@ -28,5 +28,11 @@
             android:orderInCategory="4"
             android:title="@string/fps_game_control_str"
             app:showAsAction="never" />
+
+        <item
+            android:id="@+id/hotkey_screen_menu_item_id"
+            android:orderInCategory="5"
+            android:title="@string/hotkey_str"
+            app:showAsAction="never" />
     </group>
 </menu>

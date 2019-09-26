@@ -35,4 +35,20 @@ public class basic_key_listener_interface
             }
         });
     }
+
+    public void set_hotkey_button_listener(Button key_button_in, final String key_tag_in)
+    {
+        key_button_in.setOnTouchListener(new View.OnTouchListener()
+        {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent)
+            {
+                if(motionEvent.getAction() == MotionEvent.ACTION_DOWN)
+                {
+                    new user_input_sender(client).executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, "p", key_tag_in);
+                }
+                return false;
+            }
+        });
+    }
 }

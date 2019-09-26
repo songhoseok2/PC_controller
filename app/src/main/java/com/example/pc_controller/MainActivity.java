@@ -12,11 +12,12 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
 {
-    public static final int NUMOFOPTIONS = 4;
+    public static final int NUMOFOPTIONS = 5;
     private connection_configuration_frag_class connection_configuration_frag;
     private basic_controls_frag_class basic_controls_frag;
     private mouse_control_frag_class mouse_control_frag;
     private fps_game_control_frag_class fps_game_control_frag;
+    private hotkey_frag_class hotkey_frag;
     private Menu main_menu;
     Handler mainThreadHandler;
 
@@ -98,6 +99,13 @@ public class MainActivity extends AppCompatActivity
                 if(fps_game_control_frag == null) { fps_game_control_frag = new fps_game_control_frag_class(connection_configuration_frag.get_connection().get_client_socket()); }
                 item.setChecked(true);
                 trans.replace(R.id.main_activity_layout_id, fps_game_control_frag)
+                        .commit();
+                return true;
+
+            case R.id.hotkey_screen_menu_item_id:
+                if(hotkey_frag == null) { hotkey_frag = new hotkey_frag_class(connection_configuration_frag.get_connection().get_client_socket()); }
+                item.setChecked(true);
+                trans.replace(R.id.main_activity_layout_id, hotkey_frag)
                         .commit();
                 return true;
 

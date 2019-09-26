@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:text="@string/ip_adress_field_label_str"
+        android:text="@string/ip_address_field_label_str"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/ip_address_field_id"
         app:layout_constraintEnd_toStartOf="@+id/ip_address_field_id"

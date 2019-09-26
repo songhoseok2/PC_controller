@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/shortcut_frag_id"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:screenOrientation="portrait">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintGuide_percent="0.5"
+        android:orientation="vertical" />
+
+    <Button
+        android:id="@+id/hotkey_ctrl_c_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ctrl + C"
+        app:layout_constraintBottom_toTopOf="@+id/hotkey_shut_down_id"
+        app:layout_constraintEnd_toStartOf="@+id/hotkey_ctrl_v_id"
+        app:layout_constraintStart_toEndOf="@+id/hotkey_ctrl_x_id"
+        app:layout_constraintTop_toBottomOf="@+id/hotkey_down_id" />
+
+    <Button
+        android:id="@+id/hotkey_right_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Right"
+        app:layout_constraintBottom_toTopOf="@+id/hotkey_ctrl_c_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/hotkey_down_id"
+        app:layout_constraintTop_toBottomOf="@+id/hotkey_up_id" />
+
+    <Button
+        android:id="@+id/hotkey_down_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Down"
+        app:layout_constraintBottom_toTopOf="@+id/hotkey_ctrl_c_id"
+        app:layout_constraintEnd_toStartOf="@+id/hotkey_right_id"
+        app:layout_constraintStart_toEndOf="@+id/hotkey_left_id"
+        app:layout_constraintTop_toBottomOf="@+id/hotkey_up_id" />
+
+    <Button
+        android:id="@+id/hotkey_task_manager_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open Task Manager"
+        app:layout_constraintBottom_toTopOf="@+id/hotkey_increase_brightness_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/hotkey_increase_volume_id" />
+
+    <Button
+        android:id="@+id/hotkey_decrease_volume_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Decrease Volume"
+        app:layout_constraintBottom_toTopOf="@+id/hotkey_alt_tab_id"
+        app:layout_constraintEnd_toStartOf="@+id/hotkey_mute_id"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/hotkey_increase_volume_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Increase Volume"
+        app:layout_constraintBottom_toTopOf="@+id/hotkey_task_manager_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/hotkey_mute_id"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/hotkey_decrease_brightness_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Decrease Brightness"
+        app:layout_constraintBottom_toTopOf="@+id/hotkey_nums_lock_id"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hotkey_alt_tab_id" />
+
+    <Button
+        android:id="@+id/hotkey_increase_brightness_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Increase Brightness"
+        app:layout_constraintBottom_toTopOf="@+id/hotkey_nums_lock_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/hotkey_task_manager_id" />
+
+    <Button
+        android:id="@+id/hotkey_alt_tab_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Alt + Tab"
+        app:layout_constraintBottom_toTopOf="@+id/hotkey_decrease_brightness_id"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hotkey_decrease_volume_id" />
+
+    <Button
+        android:id="@+id/hotkey_nums_lock_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NumLock"
+        app:layout_constraintBottom_toTopOf="@+id/hotkey_up_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hotkey_decrease_brightness_id" />
+
+    <Button
+        android:id="@+id/hotkey_caps_lock_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Caps Lock"
+        app:layout_constraintBottom_toTopOf="@+id/hotkey_up_id"
+        app:layout_constraintEnd_toStartOf="@+id/hotkey_nums_lock_id"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hotkey_decrease_brightness_id" />
+
+    <Button
+        android:id="@+id/hotkey_scroll_lock_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scroll Lock"
+        app:layout_constraintBottom_toTopOf="@+id/hotkey_up_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/hotkey_nums_lock_id"
+        app:layout_constraintTop_toBottomOf="@+id/hotkey_increase_brightness_id" />
+
+    <Button
+        android:id="@+id/hotkey_up_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Up"
+        app:layout_constraintBottom_toTopOf="@+id/hotkey_down_id"
+        app:layout_constraintEnd_toStartOf="@+id/hotkey_right_id"
+        app:layout_constraintStart_toEndOf="@+id/hotkey_left_id"
+        app:layout_constraintTop_toBottomOf="@+id/hotkey_nums_lock_id" />
+
+    <Button
+        android:id="@+id/hotkey_left_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Left"
+        app:layout_constraintBottom_toTopOf="@+id/hotkey_ctrl_a_id"
+        app:layout_constraintEnd_toStartOf="@+id/hotkey_down_id"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hotkey_up_id" />
+
+    <Button
+        android:id="@+id/hotkey_ctrl_v_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ctrl + V"
+        app:layout_constraintBottom_toTopOf="@+id/hotkey_shut_down_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/hotkey_ctrl_c_id"
+        app:layout_constraintTop_toBottomOf="@+id/hotkey_down_id" />
+
+    <Button
+        android:id="@+id/hotkey_ctrl_a_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ctrl + A"
+        app:layout_constraintBottom_toTopOf="@+id/hotkey_shut_down_id"
+        app:layout_constraintEnd_toStartOf="@+id/hotkey_ctrl_x_id"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hotkey_down_id" />
+
+    <Button
+        android:id="@+id/hotkey_ctrl_x_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ctrl + X"
+        app:layout_constraintBottom_toTopOf="@+id/hotkey_shut_down_id"
+        app:layout_constraintEnd_toStartOf="@+id/hotkey_ctrl_c_id"
+        app:layout_constraintStart_toEndOf="@+id/hotkey_ctrl_a_id"
+        app:layout_constraintTop_toBottomOf="@+id/hotkey_down_id" />
+
+    <Button
+        android:id="@+id/hotkey_mute_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mute"
+        app:layout_constraintBottom_toTopOf="@+id/hotkey_alt_tab_id"
+        app:layout_constraintEnd_toStartOf="@+id/hotkey_increase_volume_id"
+        app:layout_constraintStart_toEndOf="@+id/hotkey_decrease_volume_id"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/hotkey_shut_down_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Shut Down"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hotkey_ctrl_c_id" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
