@@ -3,7 +3,6 @@ package com.example.pc_controller;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.widget.TextView;
 
 public class gesture_detector_class extends GestureDetector.SimpleOnGestureListener implements GestureDetector.OnDoubleTapListener
 {

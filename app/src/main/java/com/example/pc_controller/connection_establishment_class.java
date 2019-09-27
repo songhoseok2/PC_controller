@@ -24,7 +24,7 @@ import java.net.Socket;
 
 public class connection_establishment_class extends AsyncTask<String, Void, String>
 {
-    static boolean is_connected;
+    static boolean is_connected = false;
     private LinearLayout connection_progress_image_frame;
     private TextView connection_progress_label;
     private Menu main_menu;

@@ -3,6 +3,7 @@ package com.example.pc_controller;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,11 +22,21 @@ import java.net.Socket;
 public class mouse_control_frag_class extends Fragment
 {
     Socket client;
+    Handler mainThreadHandler;
     SeekBar sensitivity_bar;
 
-    public mouse_control_frag_class(Socket client_in)
+    public mouse_control_frag_class(Socket client_in, Handler mainThreadHandler_in)
     {
         client = client_in;
+        mainThreadHandler = mainThreadHandler_in;
+    }
+
+    public void reconnect_client_if_needed(Socket new_client)
+    {
+        if(client != null && client.isClosed())
+        {
+            client = new_client;
+        }
     }
 
     @Nullable
@@ -41,16 +52,18 @@ public class mouse_control_frag_class extends Fragment
         if(savedInstanceState != null) { sensitivity_bar.setProgress(savedInstanceState.getInt("sensitivity_bar_value")); }
         TextView touch_pad_label = mouse_control_frag_view.findViewById(R.id.fps_control_touch_pad_label_id);
         View.OnTouchListener my_touchListener = new swipe_listener_class(
-            client,
-            myDetector,
-            touch_pad_label,
-            sensitivity_bar
+                client,
+                myDetector,
+                touch_pad_label,
+                sensitivity_bar,
+                mouse_control_frag_view.getContext(),
+                mainThreadHandler
         );
 
 
         touch_pad.setOnTouchListener(my_touchListener);
 
-        basic_key_listener_interface key_listener_setter = new basic_key_listener_interface(client);
+        basic_key_listener_interface key_listener_setter = new basic_key_listener_interface(client, mainThreadHandler);
         key_listener_setter.set_basic_key_button_listener((Button)mouse_control_frag_view.findViewById(R.id.mouse_control_left_click_id), "256");
         key_listener_setter.set_basic_key_button_listener((Button)mouse_control_frag_view.findViewById(R.id.mouse_control_right_click_id), "257");
         key_listener_setter.set_hotkey_button_listener((Button)mouse_control_frag_view.findViewById(R.id.mouse_control_middle_click_id), "258");

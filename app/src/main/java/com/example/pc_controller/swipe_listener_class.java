@@ -1,6 +1,8 @@
 package com.example.pc_controller;
 
+import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -18,14 +20,19 @@ public class swipe_listener_class implements View.OnTouchListener
     private VelocityTracker mVelocityTracker = null;
     GestureDetector myDetector;
     private Socket client;
+    Context current_context;
+    Handler mainThreadHandler;
 
     public swipe_listener_class(Socket client_in, GestureDetector myDetector_in,
-                                TextView label_in, SeekBar sensitivity_bar_in)
+                                TextView label_in, SeekBar sensitivity_bar_in,
+                                Context current_context_in, Handler mainThreadHandler_in)
     {
         client = client_in;
         myDetector = myDetector_in;
         label = label_in;
         sensitivity_bar = sensitivity_bar_in;
+        mainThreadHandler = mainThreadHandler_in;
+        current_context = current_context_in;
     }
 
 
@@ -70,7 +77,7 @@ public class swipe_listener_class implements View.OnTouchListener
                 label.setText("x_movement: " + x_movement_str + ", y_movement: " + y_movement_str);
                 if(Float.valueOf(x_movement) != 0 && Float.valueOf(y_movement) != 0)
                 {
-                    new user_input_sender(client).executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, "s", x_movement_str, y_movement_str);
+                    new user_input_sender(client, mainThreadHandler).executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, "s", x_movement_str, y_movement_str);
                 }
                 else
                 {

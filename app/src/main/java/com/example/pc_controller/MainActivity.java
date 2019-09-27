@@ -1,5 +1,7 @@
 package com.example.pc_controller;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -38,6 +40,40 @@ public class MainActivity extends AppCompatActivity
                         Toast.makeText(getApplicationContext(),
                                 "Connection to " + connection_configuration_frag.ip_address_field.getText() + " : " + connection_configuration_frag.port_number_field.getText() + " successful. You now have access to the controls of the PC.",
                                 Toast.LENGTH_LONG).show();
+                    }
+                    else if(msg.what == 2)
+                    {
+                        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                switch (which)
+                                {
+                                    case DialogInterface.BUTTON_POSITIVE:
+                                        if(!connection_establishment_class.is_connected)
+                                        {
+                                            for(int i = 1 ; i < NUMOFOPTIONS; ++i)
+                                            {
+                                                MenuItem current_option = main_menu.getItem(i);
+                                                current_option.setEnabled(false);
+                                            }
+                                        }
+                                        connection_configuration_frag = new connection_configuration_frag_class(getApplicationContext(), main_menu, mainThreadHandler);
+                                        onOptionsItemSelected(main_menu.findItem(R.id.connection_configuration_menu_item_id));
+                                        break;
+
+                                    case DialogInterface.BUTTON_NEGATIVE:
+                                        android.os.Process.killProcess(android.os.Process.myPid());
+                                        System.exit(0);
+                                        break;
+                                }
+                            }
+                        };
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                        builder.setMessage("Connection dropped. Do you wish to reconnect?")
+                                .setPositiveButton("Yes", dialogClickListener)
+                                .setNegativeButton("No", dialogClickListener).show();
                     }
                 }
             };
@@ -82,28 +118,32 @@ public class MainActivity extends AppCompatActivity
                 return true;
 
             case R.id.basic_screen_menu_item_id:
-                if(basic_controls_frag == null) { basic_controls_frag = new basic_controls_frag_class(connection_configuration_frag.get_connection().get_client_socket()); }
+                if(basic_controls_frag == null) { basic_controls_frag = new basic_controls_frag_class(connection_configuration_frag.get_connection().get_client_socket(), mainThreadHandler); }
+                basic_controls_frag.reconnect_client_if_needed(connection_configuration_frag.get_connection().get_client_socket());
                 item.setChecked(true);
                 trans.replace(R.id.main_activity_layout_id, basic_controls_frag)
                         .commit();
                 return true;
 
             case R.id.mouse_control_screen_menu_item_id:
-                if(mouse_control_frag == null) { mouse_control_frag = new mouse_control_frag_class(connection_configuration_frag.get_connection().get_client_socket()); }
+                if(mouse_control_frag == null) { mouse_control_frag = new mouse_control_frag_class(connection_configuration_frag.get_connection().get_client_socket(), mainThreadHandler); }
+                mouse_control_frag.reconnect_client_if_needed(connection_configuration_frag.get_connection().get_client_socket());
                 item.setChecked(true);
                 trans.replace(R.id.main_activity_layout_id, mouse_control_frag)
                         .commit();
                 return true;
 
             case R.id.fps_game_control_screen_menu_item_id:
-                if(fps_game_control_frag == null) { fps_game_control_frag = new fps_game_control_frag_class(connection_configuration_frag.get_connection().get_client_socket()); }
+                if(fps_game_control_frag == null) { fps_game_control_frag = new fps_game_control_frag_class(connection_configuration_frag.get_connection().get_client_socket(), mainThreadHandler); }
+                fps_game_control_frag.reconnect_client_if_needed(connection_configuration_frag.get_connection().get_client_socket());
                 item.setChecked(true);
                 trans.replace(R.id.main_activity_layout_id, fps_game_control_frag)
                         .commit();
                 return true;
 
             case R.id.hotkey_screen_menu_item_id:
-                if(hotkey_frag == null) { hotkey_frag = new hotkey_frag_class(connection_configuration_frag.get_connection().get_client_socket()); }
+                if(hotkey_frag == null) { hotkey_frag = new hotkey_frag_class(connection_configuration_frag.get_connection().get_client_socket(), mainThreadHandler); }
+                hotkey_frag.reconnect_client_if_needed(connection_configuration_frag.get_connection().get_client_socket());
                 item.setChecked(true);
                 trans.replace(R.id.main_activity_layout_id, hotkey_frag)
                         .commit();

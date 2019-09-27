@@ -1,6 +1,8 @@
 package com.example.pc_controller;
 
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import java.io.BufferedOutputStream;
 import java.io.DataOutputStream;
@@ -11,10 +13,12 @@ import java.net.Socket;
 
 public class user_input_sender extends AsyncTask<String, Void, String> {
     Socket client;
+    Handler mainThreadHandler;
 
-    public user_input_sender(Socket client_in)
+    public user_input_sender(Socket client_in, Handler mainThreadHandler_in)
     {
         client = client_in;
+        mainThreadHandler = mainThreadHandler_in;
     }
 
     @Override
@@ -38,9 +42,22 @@ public class user_input_sender extends AsyncTask<String, Void, String> {
             }
             else
             {
-                msg = (strings[0] + "_" + strings[1]).getBytes();
-                out.write(msg);
-                out.flush();
+                try
+                {
+                    msg = (strings[0] + "_" + strings[1]).getBytes();
+                    out.write(msg);
+                    out.flush();
+                }
+                catch(java.net.SocketException e)
+                {
+                    Log.d("socket_tag", e.toString());
+                    connection_establishment_class.is_connected = false;
+                    client.close();
+                    Message message = new Message();
+                    message.what = 2;
+                    mainThreadHandler.sendMessage(message);
+                }
+
             }
 
 

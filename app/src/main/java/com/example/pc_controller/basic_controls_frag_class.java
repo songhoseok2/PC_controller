@@ -3,12 +3,11 @@ package com.example.pc_controller;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,13 +17,21 @@ import java.net.Socket;
 public class basic_controls_frag_class extends Fragment
 {
     Socket client;
+    Handler mainThreadHandler;
 
-    public basic_controls_frag_class(Socket client_in)
+    public basic_controls_frag_class(Socket client_in, Handler mainThreadHandler_in)
     {
         client = client_in;
-        Log.d("TAG", "frag constructed");
+        mainThreadHandler = mainThreadHandler_in;
     }
-    public basic_controls_frag_class() { }
+
+    public void reconnect_client_if_needed(Socket new_client)
+    {
+        if(client != null && client.isClosed())
+        {
+            client = new_client;
+        }
+    }
 
     @Nullable
     @Override
@@ -33,7 +40,7 @@ public class basic_controls_frag_class extends Fragment
         View basic_control_frag_view = inflater.inflate(R.layout.basic_controls_frag, container, false);
         this.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-        basic_key_listener_interface key_listener_setter = new basic_key_listener_interface(client);
+        basic_key_listener_interface key_listener_setter = new basic_key_listener_interface(client, mainThreadHandler);
 
         key_listener_setter.set_basic_key_button_listener((Button)basic_control_frag_view.findViewById(R.id.basic_control_esc_id), "001");
         key_listener_setter.set_basic_key_button_listener((Button)basic_control_frag_view.findViewById(R.id.basic_control_f1_id), "059");

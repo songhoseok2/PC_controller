@@ -3,6 +3,7 @@ package com.example.pc_controller;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,10 +23,20 @@ public class fps_game_control_frag_class extends Fragment
 {
     Socket client;
     SeekBar sensitivity_bar;
+    Handler mainThreadHandler;
 
-    public fps_game_control_frag_class(Socket client_in)
+    public fps_game_control_frag_class(Socket client_in, Handler mainThreadHandler_in)
     {
         client = client_in;
+        mainThreadHandler = mainThreadHandler_in;
+    }
+
+    public void reconnect_client_if_needed(Socket new_client)
+    {
+        if(client != null && client.isClosed())
+        {
+            client = new_client;
+        }
     }
 
     @Nullable
@@ -42,10 +53,12 @@ public class fps_game_control_frag_class extends Fragment
                 client,
                 myDetector,
                 (TextView)fps_game_control_frag_view.findViewById(R.id.fps_control_touch_pad_label_id),
-                sensitivity_bar);
+                sensitivity_bar,
+                fps_game_control_frag_view.getContext(),
+                mainThreadHandler);
         touch_pad.setOnTouchListener(my_touchListener);
 
-        basic_key_listener_interface key_listener_setter = new basic_key_listener_interface(client);
+        basic_key_listener_interface key_listener_setter = new basic_key_listener_interface(client, mainThreadHandler);
         key_listener_setter.set_basic_key_button_listener((Button)fps_game_control_frag_view.findViewById(R.id.fps_control_left_click_id), "256");
         key_listener_setter.set_basic_key_button_listener((Button)fps_game_control_frag_view.findViewById(R.id.fps_control_right_click_id), "257");
         key_listener_setter.set_basic_key_button_listener((Button)fps_game_control_frag_view.findViewById(R.id.fps_control_middle_click_id), "258");
