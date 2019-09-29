@@ -79,6 +79,7 @@ public class connection_configuration_frag_class extends Fragment
                 connection_progress_label,
                 main_menu,
                 connect_button,
+                cancel_button,
                 connection_progress_bar,
                 main_activity_context,
                 mainThreadHandler,

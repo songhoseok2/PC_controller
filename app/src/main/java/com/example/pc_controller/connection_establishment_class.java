@@ -25,20 +25,24 @@ import java.net.Socket;
 public class connection_establishment_class extends AsyncTask<String, Void, String>
 {
     static boolean is_connected = false;
+    boolean connection_failed = false;
     private LinearLayout connection_progress_image_frame;
     private TextView connection_progress_label;
     private Menu main_menu;
     private Button connect_button;
+    private Button cancel_button;
     private Context main_activity_context;
     private Handler mainThreadHandler;
     private Handler connection_handler;
     public Socket client;
     ProgressBar connection_progress_bar;
+    Thread cancel_listener_thread;
 
     public connection_establishment_class(LinearLayout connection_progress_image_frame_in,
                                           TextView connection_progress_label_in,
                                           Menu main_menu_in,
                                           Button connect_button_in,
+                                          Button cancel_button_in,
                                           ProgressBar connection_progress_bar_in,
                                           Context main_activity_context_in,
                                           Handler mainThreadHandler_in,
@@ -48,6 +52,7 @@ public class connection_establishment_class extends AsyncTask<String, Void, Stri
         connection_progress_label = connection_progress_label_in;
         main_menu = main_menu_in;
         connect_button = connect_button_in;
+        cancel_button = cancel_button_in;
         connection_progress_bar = connection_progress_bar_in;
         main_activity_context = main_activity_context_in;
         mainThreadHandler = mainThreadHandler_in;
@@ -96,14 +101,14 @@ public class connection_establishment_class extends AsyncTask<String, Void, Stri
                     message.what = 1;
                     mainThreadHandler.sendMessage(message);
                     is_connected = true;
+                    message.what = 1;
+                    connection_handler.sendMessage(message);
                 }
                 catch (IOException e)
                 {
                     e.printStackTrace();
+                    connection_failed = true;
                 }
-                Message message = new Message();
-                message.what = 1;
-                connection_handler.sendMessage(message);
             }
         };
         connection_thread.start();
@@ -111,13 +116,16 @@ public class connection_establishment_class extends AsyncTask<String, Void, Stri
         //this thread is still required even when cancelling is handled in the above thread,
         //because otherwise there is no way to remove the progress bar and the text as soon as the
         //cancel button is pressed.
-        Thread cancel_listener_thread = new Thread()
+        cancel_listener_thread = new Thread()
         {
             @Override
             public void run()
             {
-                while(!isCancelled() && !is_connected) {}
-                if(!is_connected) { connection_thread.interrupt(); }
+                while(!isCancelled() && !is_connected && !connection_failed) {}
+                if(!is_connected)
+                {
+                    connection_thread.interrupt();
+                }
             }
         };
         cancel_listener_thread.start();
@@ -164,6 +172,7 @@ public class connection_establishment_class extends AsyncTask<String, Void, Stri
         }
 
         connect_button.setEnabled(!is_connected);
+        cancel_button.setVisibility(View.INVISIBLE);
     }
 
     public Socket get_client_socket()
