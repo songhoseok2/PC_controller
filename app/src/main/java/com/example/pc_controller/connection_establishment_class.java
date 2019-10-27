@@ -101,8 +101,9 @@ public class connection_establishment_class extends AsyncTask<String, Void, Stri
                     message.what = 1;
                     mainThreadHandler.sendMessage(message);
                     is_connected = true;
+                    Message message2 = new Message();
                     message.what = 1;
-                    connection_handler.sendMessage(message);
+                    connection_handler.sendMessage(message2);
                 }
                 catch (IOException e)
                 {
